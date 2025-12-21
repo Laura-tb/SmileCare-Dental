@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmileCare Dental - Gestión de Citas</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="styles.css" />
+
+</head>
+
+<body>
+
+    <!-- Top Navigation -->
+    <header class="header">
+        <div class="container header__top">
+
+            <div class="burger__menu">
+                <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+                    <span class="nav__toggle__line"></span>
+                    <span class="nav__toggle__line"></span>
+                    <span class="nav__toggle__line"></span>
+                </button>
+            </div>
+
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/icons/logo_dental.png" alt="SmileCare Dental logo">
+                    <h1>SmileCare Dental</h1>
+                </a>
+            </div>
+
+            <div class="header__icons">
+                <a class="icon icon__settings" href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                </a>
+                <a class="icon" href="#">
+                    <div>
+                        <span class="material-symbols-outlined">person</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <nav class="header__nav" aria-label="Main">
+            <div class="container nav__inner">
+
+                <nav class="main__nav" id="site-nav" aria-label="Main">
+                    <ul class="nav__links">
+                        <li><a href="#" class="nav__link">Pacientes</a></li>
+                        <li><a href="#crear-cita" class="nav__link">Nueva cita</a></li>
+                        <li><a href="#mostrar-citas" class="nav__link">Mostrar citas</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <!-- Form Section -->
+        <section id="crear-cita">
+            <div class="header-create">
+                <div>
+                    <span class="material-symbols-outlined">add_circle</span>
+                    <h2>Nueva cita</h2>
+                </div>
+                <span class="subheader-create">Introduce los datos del paciente a continuación:</span>
+            </div>
+
+            <div class="body-create">
+                <form>
+
+                    <label>
+                        <span>Fecha</span>
+                        <input type="date" />
+                    </label>
+
+                    <label>
+                        <span>Hora</span>
+                        <input type="time" />
+                    </label>
+
+                    <label>
+                        <span>Nombre</span>
+                        <input type="text" placeholder="Ana" />
+                    </label>
+
+                    <label>
+                        <span>Apellidos</span>
+                        <input type="text" placeholder="Pérez" />
+                    </label>
+
+                    <label>
+                        <span>DNI o NIE</span>
+                        <input type="text" placeholder="12345678A" />
+                    </label>
+
+                    <label>
+                        <span>Teléfono</span>
+                        <input type="tel" placeholder="666 555 888" />
+                    </label>
+
+                    <label>
+                        <span>Email</span>
+                        <input type="email" placeholder="ana.perez@example.com" />
+                    </label>
+
+                    <label>
+                        <span>Fecha de Nacimiento</span>
+                        <input type="date" />
+                    </label>
+
+                    <label>
+                        <span>Observaciones</span>
+                        <textarea rows="2" placeholder="Indica alguna observación..."></textarea>
+                    </label>
+
+                    <div class="button-create">
+                        <button type="button">Limpiar</button>
+                        <button type="button" class="button-save-blue">
+                            <span class="material-symbols-outlined">calendar_add_on</span>
+                            Guardar cita
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+
+        <!-- Table Section -->
+        <section id="mostrar-citas" class="table">
+
+            <div class="header-show">
+                <div class="header-show-top">
+                    <span class="material-symbols-outlined">calendar_today</span>
+                    <h2>Citas de Hoy</h2>
+                    <span class="date">21 Diciembre 2025</span>
+                </div>
+
+                <div>
+                    <div>
+                        <span class="material-symbols-outlined">search</span>
+                        <input type="text" placeholder="Buscar paciente..." />
+                    </div>
+                    <button>
+                        <span class="material-symbols-outlined">filter_list</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="body-show">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Paciente</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>001</td>
+                            <td>21 Diciembre 2025</td>
+                            <td>09:00 AM</td>
+                            <td>
+                                <div>
+                                    <div>
+                                        <p>Jane Doe</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>(555) 123-8899</td>
+                            <td>ddd@gmail.com</td>
+                            <td>Confirmed</td>
+
+                            <td>
+                                <a href="#">Editar</a>
+                                <a href="#">Eliminar</a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>002</td>
+                            <td>21 Diciembre 2025</td>
+                            <td>09:30 AM</td>
+                            <td>
+                                <div>
+                                    <div>
+                                        <p>Michael Ross</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>(555) 987-6543</td>
+                            <td>dwef@gmail.com</td>
+                            <td>Pending</td>
+
+                            <td>
+                                <a href="#" class="btn-edit">Editar</a>
+                                <a href="#" class="btn-delete">Eliminar</a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <p>Mostrando 1-4 de 12 citas</p>
+                <div>
+                    <button>Anterior</button>
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>Siguiente</button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer__grid">
+
+            <div class="footer__brand">
+                <a class="footer__logo" href="index.html">
+                    <img src="assets/icons/logo_dental.png" alt="SmileCare Dental logo" aria-hidden="true">
+                    <span>SmileCare Dental</span>
+                </a>
+
+                <p class="footer__desc">
+                    Clínica dental especializada en salud bucal.
+                </p>
+
+                <p class="footer__desc"><span class="material-symbols-outlined">call</span> 91 884 78 65
+                <span class="material-symbols-outlined">location_on</span> Av. San Luis, 25. Madrid
+                </p>
+
+            </div>
+
+            <nav class="footer__nav" aria-label="Mapa del sitio">
+                <div class="footer__col">
+                    <ul class="footer__links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">Pacientes</a></li>
+                        <li><a href="#crear-cita">Nueva cita</a></li>
+                        <li><a href="#mostrar-citas">Mostrar citas</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="footer__col">
+                    <ul class="footer__links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Términos</a></li>
+                        <li><a href="#">Privacidad</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+        <div class="footer__bottom">
+            <span>© 2025 SmileCare Dental. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
