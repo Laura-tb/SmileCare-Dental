@@ -11,7 +11,7 @@
     box-shadow: var(--shadow);
 }
 
-.header__top {
+.header-top {
     height: 93px;
     display: flex;
     align-items: center;
@@ -36,13 +36,13 @@
     align-items: center;
     gap: 8px;
 }
-.header__icons {
+.header-icons {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.header__icons a {
+.header-icons a {
     padding: 6px;
 }
 
@@ -51,33 +51,33 @@
     height: 20px;
 }
 
-.header__nav {
+.header-nav {
     position: relative;
 }
 
 /* Menú oculto por defecto en mobile */
-.burger__menu,
-.header__nav {
+.burger-menu,
+.header-nav {
     display: block;
 }
 
-.main__nav {
+.main-nav {
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
-    z-index: 20;
+    z-index: 999;
     background: var(--surface);
     border-top: 1px solid var(--border);
     padding: 12px 0;
 }
 
-.main__nav.is-open {
+.main-nav.is-open {
     display: block;
 }
 
-.nav__links {
+.nav-links {
     display: flex;
     flex-direction: column;
     padding: 0 16px;
@@ -85,7 +85,7 @@
     gap: 7px;
 }
 
-.nav__links a:hover{
+.nav-links a:hover{
     color: var(--primary);
     font-weight: 600;
 }
@@ -95,7 +95,7 @@
 }
 
 /* Botón burger */
-.nav__toggle {
+.nav-toggle {
     display: inline-flex;
     width: 40px;
     height: 40px;
@@ -109,7 +109,7 @@
     padding: 0;
 }
 
-.nav__toggle__line {
+.nav-toggle-line {
     width: 18px;
     height: 2px;
     background: var(--text);
@@ -140,23 +140,23 @@
 /* ===== DESKTOP ===== */
 /* En desktop: oculto burger y muestro menú inline */
 @media (min-width: 768px) {
-    .main__nav {
+    .main-nav {
         display: block;
         position: static;
         border-top: 0;
         background: transparent;
     }
 
-    .nav__links {
+    .nav-links {
         flex-direction: row;
         padding: 0;
     }
 
-    .burger__menu {
+    .burger-menu {
         display: none;
     }
 
-    .header__nav {
+    .header-nav {
         display: block;
     }
 
@@ -175,7 +175,7 @@
         height: 25px;
     }
 
-    .nav__links li {
+    .nav-links li {
         padding: 8px 12px;
     }
 }
@@ -290,6 +290,10 @@ input:focus,
 textarea:focus {
     border-color: var(--primary);
     box-shadow: 0 0 0 4px rgba(55, 19, 236, .12);
+}
+
+input.error, textarea.error {
+  border: 2px solid #e53935;
 }
 
 /* Actions */
@@ -584,31 +588,31 @@ section:nth-of-type(2)>div:last-child button:nth-child(2):hover {
     color: var(--text);
 }
 
-.footer__grid {
+.footer-grid {
     display: grid;
     gap: 12px;
     padding: 1.25rem 5%;
 }
 
 /* Brand */
-.footer__logo {
+.footer-logo {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 1.25rem;
     font-weight: 600;
 }
-.footer__logo img{
+.footer-logo img{
     height: 28px;
 }
 
-.footer__desc {
+.footer-desc {
     margin: 12px 0 16px;
     font-size: 0.95rem;
     color: var(--text-muted);
 }
 
-.footer__social {
+.footer-social {
     display: flex;
     list-style: none;
     padding: 0;
@@ -616,18 +620,18 @@ section:nth-of-type(2)>div:last-child button:nth-child(2):hover {
 }
 
 /* Sitemap */
-.footer__nav {
+.footer-nav {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
 }
 
-.footer__title {
+.footer-title {
     font-size: 0.9rem;
     font-weight: 400;
 }
 
-.footer__links {
+.footer-links {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -635,16 +639,16 @@ section:nth-of-type(2)>div:last-child button:nth-child(2):hover {
     gap: 8px;
 }
 
-.footer__links a {
+.footer-links a {
     font-size: 0.85rem;
 }
 
-.footer__links li {
+.footer-links li {
     padding: 0px;
 }
 
 /* Bottom */
-.footer__bottom {
+.footer-bottom {
     border-top: 1px solid var(--border);
     padding: 2%;
     text-align: center;
@@ -654,38 +658,38 @@ section:nth-of-type(2)>div:last-child button:nth-child(2):hover {
 
 /* ===== >= 480px (móvil grande) ===== */
 @media (min-width: 480px) {
-    .footer__grid {
+    .footer-grid {
         padding: 24px;
         gap: 16px;
     }
 
-    .footer__links a {
+    .footer-links a {
         font-size: 0.8rem;
     }
 }
 
 /* ===== >= 768px (tablet/desktop) ===== */
 @media (min-width: 768px) {
-    .footer__grid {
+    .footer-grid {
         grid-template-columns: 1.2fr 2fr;
         align-items: start;
         gap: 24px;
         padding: 2.5rem 6%;
     }
 
-    .footer__nav {
+    .footer-nav {
         gap: 24px;
     }
 
-    .footer__title {
+    .footer-title {
         font-size: 1rem;
     }
 
-    .footer__links a {
+    .footer-links a {
         font-size: 0.9rem;
     }
 
-    .footer__bottom {
+    .footer-bottom {
         padding: 16px 24px;
         font-size: 0.8rem;
     }
@@ -693,19 +697,134 @@ section:nth-of-type(2)>div:last-child button:nth-child(2):hover {
 
 /* ===== >= 1024px (desktop grande) ===== */
 @media (min-width: 1024px) {
-    .footer__grid {
+    .footer-grid {
         padding: 48px 32px;
         gap: 32px;
     }
 
-    .footer__nav {
+    .footer-nav {
         gap: 32px;
     }
 
-    .footer__bottom {
+    .footer-bottom {
         padding: 16px 24px;
         display: flex;
         justify-content: center;
         font-size: 0.8rem;
     }
+}
+
+
+/*Ventana modal Editar*/
+/* ===== Modal (mobile first) ===== */
+.modal[hidden] { display: none; }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+.modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .45);
+}
+
+/* En móvil: modal tipo "bottom sheet" */
+.modal__content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+  padding: 16px;
+
+  max-height: 85vh;
+  overflow: auto;
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.modal__close {
+  border: 0;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.modal__form label {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.modal__form input,
+.modal__form textarea {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #d0d0d0;
+  font-size: 16px; /* evita zoom en iOS */
+}
+
+.modal__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.modal__actions button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #d0d0d0;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* ===== Tablet / Desktop ===== */
+@media (min-width: 768px) {
+  /* En pantallas grandes: centrado tipo dialog */
+  .modal__content {
+    left: 50%;
+    top: 50%;
+    bottom: auto;
+    right: auto;
+    transform: translate(-50%, -50%);
+
+    width: min(720px, calc(100% - 48px));
+    border-radius: 16px;
+    max-height: 80vh;
+  }
+
+  /* 2 columnas para campos (más cómodo) */
+  .modal__form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 16px;
+  }
+
+  /* Observaciones y acciones a ancho completo */
+  .modal__form label:has(textarea),
+  .modal__actions {
+    grid-column: 1 / -1;
+  }
+
+  .modal__actions {
+    justify-content: flex-end;
+  }
+
+  .modal__actions button {
+    flex: 0 0 auto;
+    min-width: 160px;
+  }
 }
