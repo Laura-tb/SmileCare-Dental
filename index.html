@@ -22,10 +22,11 @@
 
 <body>
 
-    <!-- Top Navigation -->
+    <!-- Top navigation / header -->
     <header class="header">
         <div class="container header-top">
 
+            <!-- Burger menu button (visible on mobile) -->
             <div class="burger-menu">
                 <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
                     <span class="nav-toggle-line"></span>
@@ -34,6 +35,7 @@
                 </button>
             </div>
 
+            <!-- Brand / logo -->
             <div class="logo">
                 <a href="index.html">
                     <img src="assets/icons/logo_dental.png" alt="SmileCare Dental logo">
@@ -41,6 +43,7 @@
                 </a>
             </div>
 
+            <!-- Header action icons (settings and user/profile) -->
             <div class="header-icons">
                 <a class="icon icon-settings" href="#">
                     <span class="material-symbols-outlined">settings</span>
@@ -53,9 +56,11 @@
             </div>
         </div>
 
+        <!-- Main navigation wrapper -->
         <nav class="header-nav" aria-label="Main">
             <div class="container nav-inner">
 
+                <!-- Main navigation list -->
                 <nav class="main-nav" id="site-nav" aria-label="Main">
                     <ul class="nav-links">
                         <li><a href="#" class="nav-link">Pacientes</a></li>
@@ -68,9 +73,10 @@
         </nav>
     </header>
 
+    <!-- Main page content -->
     <main class="container">
 
-        <!-- Form Section -->
+        <!-- Appointment creation section -->
         <section id="crear-cita">
             <div class="header-create">
                 <div>
@@ -81,46 +87,56 @@
             </div>
 
             <div class="body-create">
+                <!-- Main form used to create an appointment -->
                 <form id="appointmentForm">
 
                     <label>
                         <span>Fecha</span>
                         <input type="date" id="date" name="date" required />
+                        <small class="error-msg" aria-live="polite"></small>
                     </label>
 
                     <label>
                         <span>Hora</span>
                         <input type="time" id="time" name="time" required />
+                        <small class="error-msg" aria-live="polite"></small>
                     </label>
 
                     <label>
                         <span>Nombre</span>
                         <input id="firstName" name="firstName" type="text" placeholder="Ana" required />
+                        <small class="error-msg" aria-live="polite"></small>
                     </label>
 
                     <label>
                         <span>Apellidos</span>
                         <input id="lastName" name="lastName" type="text" placeholder="Pérez" required />
+                        <small class="error-msg" aria-live="polite"></small>
+
                     </label>
 
                     <label>
                         <span>DNI o NIE</span>
-                        <input type="text" id="dni" name="dni" placeholder="12345678A" />
+                        <input type="text" id="dni" name="dni" placeholder="12345678A" required />
+                        <small class="error-msg" aria-live="polite"></small>
                     </label>
 
                     <label>
                         <span>Teléfono</span>
                         <input id="phone" name="phone" type="tel" placeholder="666 555 888" required />
+                        <small class="error-msg" aria-live="polite"></small>
                     </label>
 
                     <label>
                         <span>Email</span>
-                        <input id="email" name="email" type="email" placeholder="ana.perez@example.com" />
+                        <input id="email" name="email" type="email" placeholder="ana.perez@example.com" required />
+                        <small class="error-msg" aria-live="polite"></small>
                     </label>
 
                     <label>
                         <span>Fecha de Nacimiento</span>
-                        <input id="birthDate" name="birthDate" type="date" />
+                        <input id="birthDate" name="birthDate" type="date" required />
+                        <small class="error-msg" aria-live="polite"></small>
                     </label>
 
                     <label>
@@ -129,8 +145,10 @@
                             placeholder="Indica alguna observación..."></textarea>
                     </label>
 
+                    <!-- Hidden field used to keep track of the appointment being edited -->
                     <input type="hidden" id="editingId" />
 
+                    <!-- Form actions -->
                     <div class="button-create">
                         <button id="resetBtn" type="reset">Limpiar</button>
                         <button id="saveBtn" type="submit" class="button-save-blue">
@@ -143,14 +161,14 @@
             </div>
         </section>
 
-        <!-- Table Section -->
+        <!-- Appointments table section -->
         <section id="mostrar-citas" class="table">
 
             <div class="header-show">
                 <div class="header-show-top">
                     <span class="material-symbols-outlined">calendar_today</span>
                     <h2>Citas de Hoy</h2>
-                    <span class="date">21 Diciembre 2025</span>
+                    <span class="date" id="todayLabel"></span>
                 </div>
 
                 <div>
@@ -158,17 +176,19 @@
                         <span class="material-symbols-outlined">search</span>
                         <input id="searchInput" type="text" placeholder="Buscar paciente..." />
                     </div>
-                    <button>
-                        <span class="material-symbols-outlined">filter_list</span>
-                    </button>
+                    <div class="header-show-actions">
+                        <button type="button" id="showAllBtn">Todas</button>
+                        <button type="button" id="showTodayBtn" class="is-active">Hoy</button>
+                    </div>
                 </div>
             </div>
 
+            <!-- Table container -->
             <div class="body-show">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Fecha</th>
                             <th>Hora</th>
                             <th>Paciente</th>
@@ -180,25 +200,15 @@
                     </thead>
 
                     <tbody id="appointmentsTbody">
-                        <!-- Citas se insertan aquí dinámicamente -->
+                        <!-- Appointments are inserted here dynamically -->
                     </tbody>
                 </table>
-            </div>
-
-            <div>
-                <p>Mostrando 1-4 de 12 citas</p>
-                <div>
-                    <button>Anterior</button>
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>Siguiente</button>
-                </div>
             </div>
 
         </section>
     </main>
 
+    <!-- Edit modal (hidden by default). JS toggles [hidden] to show it -->
     <div id="editModal" class="modal" hidden>
         <div class="modal__overlay" data-close="true"></div>
 
@@ -208,6 +218,7 @@
                 <button type="button" class="modal__close" data-close="true">✕</button>
             </div>
 
+            <!-- Separate form for editing an existing appointment -->
             <form id="editForm" class="modal__form">
                 <input type="hidden" id="editId" />
 
@@ -275,6 +286,7 @@
         </div>
     </footer>
 
+    <!-- JavaScript file -->
     <script src="js/main.js"></script>
 </body>
 
