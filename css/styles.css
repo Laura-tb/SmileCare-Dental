@@ -293,23 +293,19 @@ textarea:focus {
     box-shadow: 0 0 0 4px rgba(55, 19, 236, .12);
 }
 
-/*input.error, textarea.error {
-  border: 2px solid #e53935;
-}*/
-
 .error {
-    border: 2px solid #d33;
+    border: 2px solid var(--danger);
 }
 
 .error-msg {
     display: block;
     font-size: .85rem;
     margin-top: .25rem;
-    color: #d33;
+    color: var(--danger);
 }
 
 
-/* Actions */
+/* Buttons */
 form>div {
     display: flex;
     justify-content: flex-end;
@@ -414,19 +410,18 @@ form>div>button:last-child>span {
 }
 
 /* Search + filter (en móvil ocupa ancho completo) */
-section:nth-of-type(2)>div:first-child>div:last-child {
+.header-show-bottom {
     display: flex;
     align-items: center;
     gap: 10px;
     width: 100%;
 }
 
-section:nth-of-type(2)>div:first-child>div:last-child>div {
+.header-show-search {
     position: relative;
-    flex: 1;
 }
 
-section:nth-of-type(2)>div:first-child>div:last-child>div>span {
+.header-show-search span {
     position: absolute;
     left: 10px;
     top: 50%;
@@ -435,22 +430,9 @@ section:nth-of-type(2)>div:first-child>div:last-child>div>span {
     color: #9ca3af;
 }
 
-section:nth-of-type(2)>div:first-child>div:last-child input {
+.header-show-search input {
     height: 40px;
     padding-left: 40px;
-}
-
-section:nth-of-type(2)>div:first-child>div:last-child>button {
-    height: 40px;
-    width: 40px;
-    border-radius: 10px;
-    border: 1px solid var(--border-strong);
-    background: #fff;
-    cursor: pointer;
-}
-
-section:nth-of-type(2)>div:first-child>div:last-child>button:hover {
-    background: #f7f7fb;
 }
 
 /* Wrapper tabla */
@@ -487,106 +469,125 @@ tbody tr:hover {
     background: #fafafe;
 }
 
-/* Oculta Doctor (col 5) en móvil */
-thead th:nth-child(5),
-tbody td:nth-child(5) {
-    display: none;
-}
-
-/* Patient cell */
-tbody td:nth-child(2)>div {
-    display: flex;
+/* =========================
+   Header show actions (Todas / Hoy)
+   ========================= */
+.header-show-actions {
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
-}
-
-tbody td:nth-child(2)>div>div:first-child {
-    width: 32px;
-    height: 32px;
+    gap: 4px;
+    padding: 3px;
+    border: 1px solid var(--border-strong);
     border-radius: 999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 12px;
-    background: #e5efff;
-    color: #2563eb;
+    background: var(--input-bg);
 }
 
-tbody td:nth-child(2) p {
-    margin: 0;
-}
-
-tbody td:nth-child(2) p:first-child {
-    font-weight: 700;
-}
-
-tbody td:nth-child(2) p:last-child {
-    font-size: 12px;
+.header-show-actions>button {
+    appearance: none;
+    border: 0;
+    background: transparent;
     color: var(--muted);
-    margin-top: 2px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease, box-shadow .15s ease, filter .15s ease;
 }
+
+.header-show-actions>button:hover {
+    background: var(--bg);
+    color: var(--text);
+}
+
+.header-show-actions>button.is-active {
+    background: var(--primary);
+    color: var(--surface);
+}
+
+.header-show-actions>button.is-active:hover {
+    filter: brightness(.95);
+}
+
+.header-show-actions>button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--primary);
+}
+
+/* ===== >= 768px ===== */
+@media (min-width: 768px) {
+    .header-show-actions {
+        gap: 6px;
+        padding: 4px;
+    }
+
+    .header-show-actions>button {
+        font-size: 13px;
+        padding: 7px 12px;
+    }
+}
+
 
 /* Actions */
 
-.btn-edit {
-    background: var(--surface);
-    color: var(--primary);
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 8px;
+.table-actions {
+    white-space: nowrap;
 }
 
-tbody td:last-child button:hover {
-    color: var(--primary);
-    background: rgba(55, 19, 236, .10);
-}
-
-/* Pagination */
-section:nth-of-type(2)>div:last-child {
-    padding: 14px 16px;
-    border-top: 1px solid var(--border);
-    display: flex;
+.btn-action {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-section:nth-of-type(2)>div:last-child p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 13px;
-}
-
-section:nth-of-type(2)>div:last-child>div {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-section:nth-of-type(2)>div:last-child button {
-    border: 1px solid var(--border);
-    background: #fff;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
     padding: 6px 10px;
     border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #fff;
     cursor: pointer;
-    font-size: 14px;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
 }
 
-section:nth-of-type(2)>div:last-child button:hover {
-    background: #f7f7fb;
+.btn-action+.btn-action {
+    margin-left: 6px;
 }
 
-section:nth-of-type(2)>div:last-child button:nth-child(2) {
-    background: var(--primary);
-    border-color: transparent;
-    color: #fff;
+/* Editar */
+.btn-edit {
+    color: var(--primary);
+    border-color: rgba(55, 19, 236, .35);
 }
 
-section:nth-of-type(2)>div:last-child button:nth-child(2):hover {
-    filter: brightness(.95);
+.btn-edit:hover {
+    background: rgba(55, 19, 236, .08);
 }
+
+/* Eliminar */
+.btn-delete {
+    color: #dc2626;
+    border-color: rgba(220, 38, 38, .35);
+}
+
+.btn-delete:hover {
+    background: rgba(220, 38, 38, .08);
+}
+
+/* Focus accesible */
+.btn-action:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(55, 19, 236, .25);
+}
+
+/* >= 768px */
+@media (min-width: 768px) {
+    .btn-action {
+        font-size: 13px;
+        padding: 6px 12px;
+    }
+}
+
 
 /* =========================
    Footer

@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // COOKIES STORAGE (APPOINTMENTS)
 
 // Unique identifier based on creation timestamp
-function generateAppointmentId() {  
+function generateAppointmentId() {
   return Date.now();
 }
 
@@ -159,12 +159,33 @@ function renderAppointments(list) {
       <td>${escapeHtml(c.phone)}</td>
       <td>${escapeHtml(c.email)}</td>
       <td>Confirmado</td>
-      <td>
-        <a href="#" data-action="edit" data-id="${c.id}">Editar</a>
-        <a href="#" data-action="delete" data-id="${c.id}">Eliminar</a>
+      <td class="table-actions">
+        <button type="button" class="btn-action btn-edit" data-action="edit" data-id="${c.id}">Editar</button>
+        <button type="button" class="btn-action btn-delete" data-action="delete" data-id="${c.id}">Eliminar</button>
       </td>
     </tr>
   `).join("");
+  
+
+  if (!tbody.dataset.listener) {
+    tbody.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-action]");
+      if (!btn) return;
+
+      const id = Number(btn.dataset.id);
+      const action = btn.dataset.action;
+
+      if (action === "edit") openEditModal(id);
+      if (action === "delete") {
+        const ok = confirm("¿Seguro que quieres eliminar esta cita?");
+        if (!ok) return;
+        deleteAppointment(id);
+        renderAppointments(getAppointments()); 
+      }
+    });
+
+    tbody.dataset.listener = "true";
+  }
 }
 
 function formatDateES(yyyyMmDd) {
@@ -290,9 +311,18 @@ let viewMode = "today"; // "today" | "all"
 
 function applyFiltersAndRender() {
   const citas = getAppointments();
-  const list = viewMode === "today"
+
+  let list = viewMode === "today"
     ? citas.filter(c => c.date === todayISO())
     : citas;
+
+  // ⬇️ filtro por paciente (nombre + apellidos)
+  if (searchQuery) {
+    list = list.filter(c => {
+      const fullName = `${c.firstName || ""} ${c.lastName || ""}`.toLowerCase();
+      return fullName.includes(searchQuery);
+    });
+  }
 
   renderAppointments(list);
   updateHeaderLabel(viewMode);
@@ -300,6 +330,7 @@ function applyFiltersAndRender() {
   showTodayBtn?.classList.toggle("is-active", viewMode === "today");
   showAllBtn?.classList.toggle("is-active", viewMode === "all");
 }
+
 
 
 // EVENTS
@@ -388,15 +419,17 @@ document.addEventListener("keydown", (e) => {
 editForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
+  if (!validateEditForm()) return;
+
   const citaEditada = {
     id: Number(editId.value),
     date: editDate.value,
     time: editTime.value,
-    firstName: editFirstName.value,
-    lastName: editLastName.value,
-    dni: editDni.value, 
-    phone: editPhone.value,
-    email: editEmail.value,
+    firstName: editFirstName.value.trim(),
+    lastName: editLastName.value.trim(),
+    dni: editDni.value.trim().toUpperCase(),
+    phone: editPhone.value.trim(),
+    email: editEmail.value.trim(),
     birthDate: editBirthDate.value,
     notes: editNotes.value
   };
@@ -407,4 +440,87 @@ editForm.addEventListener("submit", (e) => {
   saveAppointment(citaEditada);
   applyFiltersAndRender();
   closeEditModal();
+});
+
+function clearFieldError(el) {
+  el.classList.remove("error");
+  const old = el.parentElement.querySelector(".error-msg");
+  if (old) old.remove();
+}
+
+function setFieldError(el, message) {
+  el.classList.add("error");
+  const span = document.createElement("span");
+  span.className = "error-msg";
+  span.textContent = message;
+  el.parentElement.appendChild(span);
+}
+
+function validateEditForm() {
+  let ok = true;
+
+  const fields = [
+    { el: editDate,      msg: "Selecciona una fecha." },
+    { el: editTime,      msg: "Selecciona una hora." },
+    { el: editFirstName, msg: "Nombre obligatorio (mín. 2 caracteres)." },
+    { el: editLastName,  msg: "Apellidos obligatorios (mín. 2 caracteres)." },
+    { el: editDni,       msg: "DNI/NIE no válido." },
+    { el: editPhone,     msg: "Teléfono no válido." },
+    { el: editEmail,     msg: "Email no válido." },
+    { el: editBirthDate, msg: "Fecha de nacimiento obligatoria." }
+  ];
+
+  // limpia errores previos
+  fields.forEach(f => clearFieldError(f.el));
+
+  // validaciones
+  fields.forEach(({ el, msg }) => {
+    const value = (el.value || "").trim();
+
+    // required
+    if (!value) {
+      ok = false;
+      setFieldError(el, msg);
+      return;
+    }
+
+    // reglas específicas (mínimos)
+    if (el === editFirstName && value.length < 2) {
+      ok = false; setFieldError(el, msg); return;
+    }
+
+    if (el === editLastName && value.length < 2) {
+      ok = false; setFieldError(el, msg); return;
+    }
+
+    if (el === editEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      ok = false; setFieldError(el, msg); return;
+    }
+
+    // Tel: simple (9-15 dígitos, permite + y espacios)
+    if (el === editPhone && !/^[0-9+ ]{9,15}$/.test(value)) {
+      ok = false; setFieldError(el, msg); return;
+    }
+
+    // DNI/NIE básico
+    if (el === editDni && !/^([0-9]{8}[A-Za-z]|[XYZxyz][0-9]{7}[A-Za-z])$/.test(value)) {
+      ok = false; setFieldError(el, msg); return;
+    }
+  });
+
+  // foco al primer error
+  if (!ok) {
+    const firstError = editForm.querySelector(".error");
+    firstError?.focus();
+  }
+
+  return ok;
+}
+
+//Busqueda
+let searchQuery = "";
+
+searchInput?.addEventListener("input", (e) => {
+  searchQuery = e.target.value.trim().toLowerCase();
+  applyFiltersAndRender();
 });

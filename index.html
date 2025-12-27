@@ -171,8 +171,8 @@
                     <span class="date" id="todayLabel"></span>
                 </div>
 
-                <div>
-                    <div>
+                <div class="header-show-bottom">
+                    <div class="header-show-search">
                         <span class="material-symbols-outlined">search</span>
                         <input id="searchInput" type="text" placeholder="Buscar paciente..." />
                     </div>
@@ -222,14 +222,23 @@
             <form id="editForm" class="modal__form">
                 <input type="hidden" id="editId" />
 
-                <label>Fecha <input type="date" id="editDate" required></label>
-                <label>Hora <input type="time" id="editTime" required></label>
-                <label>Nombre <input type="text" id="editFirstName" required></label>
-                <label>Apellidos <input type="text" id="editLastName" required></label>
-                <label>DNI/NIE <input type="text" id="editDni" required></label>
-                <label>Teléfono <input type="tel" id="editPhone" required></label>
-                <label>Email <input type="email" id="editEmail" required></label>
-                <label>Fecha nacimiento <input type="date" id="editBirthDate" required></label>
+                <label>Fecha <input type="date" id="editDate" required><small class="error-msg"
+                        aria-live="polite"></small></label>
+                <label>Hora <input type="time" id="editTime" required><small class="error-msg"
+                        aria-live="polite"></small></label>
+                <label>Nombre <input type="text" id="editFirstName" name="firstName" required><small class="error-msg"
+                        aria-live="polite"></small></label>
+                <label>Apellidos <input type="text" id="editLastName" name="lastName" required><small class="error-msg"
+                        aria-live="polite"></small></label>
+                <label>DNI/NIE <input type="text" id="editDni" name="dni" required maxlength="9"
+                        pattern="^([0-9]{8}[A-Za-z]|[XYZxyz][0-9]{7}[A-Za-z])$"><small class="error-msg"
+                        aria-live="polite"></small></label>
+                <label>Teléfono <input type="tel" id="editPhone" name="phone" required pattern="^[0-9+ ]{9,15}$"><small
+                        class="error-msg" aria-live="polite"></small></label>
+                <label>Email <input type="email" id="editEmail" name="email" required><small class="error-msg"
+                        aria-live="polite"></small></label>
+                <label>Fecha nacimiento <input type="date" id="editBirthDate" required><small class="error-msg"
+                        aria-live="polite"></small></label>
                 <label>Observaciones <textarea id="editNotes" rows="2"></textarea></label>
 
                 <div class="modal__actions">
