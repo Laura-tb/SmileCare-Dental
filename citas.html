@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmileCare Dental - Gestión de Citas</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/styles.css" />
+
+</head>
+
+<body>
+
+    <!-- Top navigation / header -->
+    <header class="header">
+        <div class="container header-top">
+
+            <!-- Burger menu button (visible on mobile) -->
+            <div class="burger-menu">
+                <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+                    <span class="nav-toggle-line"></span>
+                    <span class="nav-toggle-line"></span>
+                    <span class="nav-toggle-line"></span>
+                </button>
+            </div>
+
+            <!-- Brand / logo -->
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/icons/logo_dental.png" alt="SmileCare Dental logo">
+                    <h1>SmileCare Dental</h1>
+                </a>
+            </div>
+
+            <!-- Header action icons (settings and user/profile) -->
+            <div class="header-icons">
+                <a class="icon icon-settings" href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                </a>
+                <a class="icon" href="#">
+                    <div>
+                        <span class="material-symbols-outlined">person</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main navigation wrapper -->
+        <nav class="header-nav" aria-label="Main">
+            <div class="container nav-inner">
+
+                <!-- Main navigation list -->
+                <nav class="main-nav" id="site-nav" aria-label="Main">
+                    <ul class="nav-links">
+                        <li><a href="#" class="nav-link">Pacientes</a></li>
+                        <li><a href="#crear-cita" class="nav-link">Nueva cita</a></li>
+                        <li><a href="#mostrar-citas" class="nav-link">Mostrar citas</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main page content -->
+    <main class="container">
+
+        <!-- Appointment creation section -->
+        <section id="crear-cita">
+            <div class="header-create">
+                <div>
+                    <span class="material-symbols-outlined">add_circle</span>
+                    <h2>Nueva cita</h2>
+                </div>
+                <span class="subheader-create">Introduce los datos del paciente a continuación:</span>
+            </div>
+
+            <div class="body-create">
+                <!-- Main form used to create an appointment -->
+                <form id="appointmentForm">
+
+                    <label>
+                        <span>Fecha</span>
+                        <input type="date" id="date" name="date" required />
+                        <small class="error-msg" aria-live="polite"></small>
+                    </label>
+
+                    <label>
+                        <span>Hora</span>
+                        <input type="time" id="time" name="time" required />
+                        <small class="error-msg" aria-live="polite"></small>
+                    </label>
+
+                    <label>
+                        <span>Nombre</span>
+                        <input id="firstName" name="firstName" type="text" placeholder="Ana" required />
+                        <small class="error-msg" aria-live="polite"></small>
+                    </label>
+
+                    <label>
+                        <span>Apellidos</span>
+                        <input id="lastName" name="lastName" type="text" placeholder="Pérez" required />
+                        <small class="error-msg" aria-live="polite"></small>
+
+                    </label>
+
+                    <label>
+                        <span>DNI o NIE</span>
+                        <input type="text" id="dni" name="dni" placeholder="12345678A" required />
+                        <small class="error-msg" aria-live="polite"></small>
+                    </label>
+
+                    <label>
+                        <span>Teléfono</span>
+                        <input id="phone" name="phone" type="tel" placeholder="666 555 888" required />
+                        <small class="error-msg" aria-live="polite"></small>
+                    </label>
+
+                    <label>
+                        <span>Email</span>
+                        <input id="email" name="email" type="email" placeholder="ana.perez@example.com" required />
+                        <small class="error-msg" aria-live="polite"></small>
+                    </label>
+
+                    <label>
+                        <span>Fecha de Nacimiento</span>
+                        <input id="birthDate" name="birthDate" type="date" required />
+                        <small class="error-msg" aria-live="polite"></small>
+                    </label>
+
+                    <label>
+                        <span>Observaciones</span>
+                        <textarea id="notes" name="notes" rows="2"
+                            placeholder="Indica alguna observación..."></textarea>
+                    </label>
+
+                    <!-- Hidden field used to keep track of the appointment being edited -->
+                    <input type="hidden" id="editingId" />
+
+                    <!-- Form actions -->
+                    <div class="button-create">
+                        <button id="resetBtn" type="reset">Limpiar</button>
+                        <button id="saveBtn" type="submit" class="button-save-blue">
+                            <span class="material-symbols-outlined">calendar_add_on</span>
+                            Guardar cita
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+
+        <!-- Appointments table section -->
+        <section id="mostrar-citas" class="table">
+
+            <div class="header-show">
+                <div class="header-show-top">
+                    <span class="material-symbols-outlined">calendar_today</span>
+                    <h2>Citas de Hoy</h2>
+                    <span class="date" id="todayLabel"></span>
+                </div>
+
+                <div class="header-show-bottom">
+                    <div class="header-show-search">
+                        <span class="material-symbols-outlined">search</span>
+                        <input id="searchInput" type="text" placeholder="Buscar..." />
+                    </div>
+                    <div class="header-show-actions">
+                        <button type="button" id="showAllBtn">Todas</button>
+                        <button type="button" id="showTodayBtn" class="is-active">Hoy</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table container -->
+            <div class="body-show">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Paciente</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="appointmentsTbody">
+                        <!-- Appointments are inserted here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Edit modal (hidden by default). JS toggles [hidden] to show it -->
+    <div id="editModal" class="modal" hidden>
+        <div class="modal__overlay" data-close="true"></div>
+
+        <div class="modal__content" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+            <div class="modal__header">
+                <h2 id="editTitle">Editar cita</h2>
+                <button type="button" class="modal__close" data-close="true">✕</button>
+            </div>
+
+            <!-- Separate form for editing an existing appointment -->
+            <form id="editForm" class="modal__form">
+                <input type="hidden" id="editId" />
+
+                <label>Fecha <input type="date" id="editDate" required><small class="error-msg"
+                        aria-live="polite"></small></label>
+                <label>Hora <input type="time" id="editTime" required><small class="error-msg"
+                        aria-live="polite"></small></label>
+                <label>Nombre <input type="text" id="editFirstName" name="firstName" required><small class="error-msg"
+                        aria-live="polite"></small></label>
+                <label>Apellidos <input type="text" id="editLastName" name="lastName" required><small class="error-msg"
+                        aria-live="polite"></small></label>
+                <label>DNI/NIE <input type="text" id="editDni" name="dni" required maxlength="9"
+                        pattern="^([0-9]{8}[A-Za-z]|[XYZxyz][0-9]{7}[A-Za-z])$"><small class="error-msg"
+                        aria-live="polite"></small></label>
+                <label>Teléfono <input type="tel" id="editPhone" name="phone" required pattern="^[0-9+ ]{9,15}$"><small
+                        class="error-msg" aria-live="polite"></small></label>
+                <label>Email <input type="email" id="editEmail" name="email" required><small class="error-msg"
+                        aria-live="polite"></small></label>
+                <label>Fecha nacimiento <input type="date" id="editBirthDate" required><small class="error-msg"
+                        aria-live="polite"></small></label>
+                <label>Observaciones <textarea id="editNotes" rows="2"></textarea></label>
+
+                <div class="modal__actions">
+                    <button type="button" id="cancelEditBtn" data-close="true">Cancelar</button>
+                    <button type="submit">Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+
+            <div class="footer-brand">
+                <a class="footer-logo" href="index.html">
+                    <img src="assets/icons/logo_dental.png" alt="SmileCare Dental logo" aria-hidden="true">
+                    <span>SmileCare Dental</span>
+                </a>
+
+                <p class="footer-desc">
+                    Clínica dental especializada en salud bucal.
+                </p>
+
+                <p class="footer-desc"><span class="material-symbols-outlined">call</span> 91 884 78 65
+                    <span class="material-symbols-outlined">location_on</span> Av. San Luis, 25. Madrid
+                </p>
+
+            </div>
+
+            <nav class="footer-nav" aria-label="Mapa del sitio">
+                <div class="footer-col">
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">Pacientes</a></li>
+                        <li><a href="#crear-cita">Nueva cita</a></li>
+                        <li><a href="#mostrar-citas">Mostrar citas</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="footer-col">
+                    <ul class="footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Términos</a></li>
+                        <li><a href="#">Privacidad</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+        <div class="footer-bottom">
+            <span>© 2025 SmileCare Dental. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <!-- JavaScript file -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
