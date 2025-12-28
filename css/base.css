@@ -2,6 +2,7 @@
 
 :root {
     --primary: #3713ec;
+    --btn-hover:#2f44e6;
     --bg: #f6f6f8;
     --surface: #ffffff;
     --text: #100d1b;
@@ -40,6 +41,14 @@ body {
     color: var(--text);
     background-color: var(--bg);
     font-size: var(--font-size);
+}
+
+
+body.home {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+    url("/assets/fondo_clinica.png") center / cover no-repeat;
 }
 
 h1,
